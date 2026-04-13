@@ -272,19 +272,20 @@ Notice how each prompt builds on the previous answer. You're having a conversati
 
 **Best for**: Complex tasks where you want to review the approach before execution. Similar to planning a route before a trip using GPS.
 
-Plan mode helps you create a step-by-step plan before writing any code. Use the `/plan` command, press **Shift+Tab** to cycle into Plan Mode, or use the `--plan` startup flag:
-
-> 💡 **Tip**: **Shift+Tab** cycles between modes: Interactive → Plan → Autopilot. Press it anytime during an interactive session to switch modes without typing a command.
-
-> 💡 **Startup shortcut**: You can launch the CLI directly in Plan mode from your terminal using the `--plan` flag.
-> ```bash
-> copilot --plan
-> ```
+Plan mode helps you create a step-by-step plan before writing any code. Use the `/plan` command, press **Shift+Tab** to cycle into Plan Mode:
 
 ```bash
 copilot
 
 > /plan Add a "mark as read" command to the book app
+```
+
+> 💡 **Tip**: **Shift+Tab** cycles between modes: Interactive → Plan → Autopilot. Press it anytime during an interactive session to switch modes without typing a command.
+
+You can also launch Copilot CLI directly in plan mode using the `--plan` flag:
+
+```bash
+copilot --plan
 ```
 
 **Plan mode output:** (your output may differ)
