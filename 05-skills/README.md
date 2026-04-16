@@ -546,7 +546,13 @@ copilot
 # Install a plugin from the marketplace
 ```
 
-Plugins can bundle multiple capabilities together - a single plugin might include related skills, agents, and MCP server configurations that work together.
+To keep your local plugin catalog current, refresh it with:
+
+```bash
+copilot plugin marketplace update
+```
+
+Plugins can bundle multiple capabilities together. A single plugin might include related skills, agents, and MCP server configurations that work together.
 
 ### Community Skill Repositories
 
