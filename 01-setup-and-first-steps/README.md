@@ -444,6 +444,13 @@ That's it for getting started! As you become comfortable, you can explore additi
 | `/session` | Show session info and workspace summary |
 | `/share` | Export session as a markdown file, GitHub gist, or self-contained HTML file |
 
+### Display
+
+| Command | What It Does |
+|---------|--------------|
+| `/statusline` (or `/footer`) | Customize which items appear in the status bar at the bottom of the session (directory, branch, effort, context window, quota) |
+| `/theme` | View or set terminal theme |
+
 ### Help and Feedback
 
 | Command | What It Does |
@@ -451,7 +458,6 @@ That's it for getting started! As you become comfortable, you can explore additi
 | `/changelog` | Display changelog for CLI versions |
 | `/feedback` | Submit feedback to GitHub |
 | `/help` | Show all available commands |
-| `/theme` | View or set terminal theme |
 
 ### Quick Shell Commands
 
