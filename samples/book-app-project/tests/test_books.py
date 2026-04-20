@@ -90,3 +90,51 @@ def test_search_case_insensitive():
     collection = BookCollection()
     collection.add_book("Dune", "Frank Herbert", 1965)
     assert collection.search("DUNE") == collection.search("dune")
+
+
+def test_rate_book_with_rating_and_review():
+    collection = BookCollection()
+    collection.add_book("Dune", "Frank Herbert", 1965)
+    result = collection.rate_book("Dune", rating=5, review="A masterpiece")
+    assert result is True
+    book = collection.find_book_by_title("Dune")
+    assert book.rating == 5
+    assert book.review == "A masterpiece"
+
+
+def test_rate_book_rating_only():
+    collection = BookCollection()
+    collection.add_book("Dune", "Frank Herbert", 1965)
+    collection.rate_book("Dune", rating=4)
+    book = collection.find_book_by_title("Dune")
+    assert book.rating == 4
+    assert book.review is None
+
+
+def test_rate_book_review_only():
+    collection = BookCollection()
+    collection.add_book("Dune", "Frank Herbert", 1965)
+    collection.rate_book("Dune", review="Loved it")
+    book = collection.find_book_by_title("Dune")
+    assert book.rating is None
+    assert book.review == "Loved it"
+
+
+def test_rate_book_invalid_rating_too_low():
+    collection = BookCollection()
+    collection.add_book("Dune", "Frank Herbert", 1965)
+    with pytest.raises(ValueError):
+        collection.rate_book("Dune", rating=0)
+
+
+def test_rate_book_invalid_rating_too_high():
+    collection = BookCollection()
+    collection.add_book("Dune", "Frank Herbert", 1965)
+    with pytest.raises(ValueError):
+        collection.rate_book("Dune", rating=6)
+
+
+def test_rate_book_not_found():
+    collection = BookCollection()
+    result = collection.rate_book("Nonexistent Book", rating=3)
+    assert result is False

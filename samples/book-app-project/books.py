@@ -11,6 +11,8 @@ class Book:
     author: str
     year: int
     read: bool = False
+    rating: int | None = None
+    review: str | None = None
 
 
 class BookCollection:
@@ -81,3 +83,17 @@ class BookCollection:
         """Search books by partial, case-insensitive match on title or author."""
         q = query.lower()
         return [b for b in self.books if q in b.title.lower() or q in b.author.lower()]
+
+    def rate_book(self, title: str, rating: int | None = None, review: str | None = None) -> bool:
+        """Rate a book and/or add a review. Rating must be between 1 and 5."""
+        if rating is not None and not (1 <= rating <= 5):
+            raise ValueError(f"Rating must be between 1 and 5, got {rating}.")
+        book = self.find_book_by_title(title)
+        if not book:
+            return False
+        if rating is not None:
+            book.rating = rating
+        if review is not None:
+            book.review = review
+        self.save_books()
+        return True

@@ -16,7 +16,11 @@ def show_books(books: list[Book]) -> None:
 
     for index, book in enumerate(books, start=1):
         status = "✓" if book.read else " "
-        print(f"{index}. [{status}] {book.title} by {book.author} ({book.year})")
+        stars = ""
+        if book.rating is not None:
+            stars = " " + "★" * book.rating + "☆" * (5 - book.rating)
+        review = f" — {book.review}" if book.review else ""
+        print(f"{index}. [{status}] {book.title} by {book.author} ({book.year}){stars}{review}")
 
     print()
 
@@ -71,6 +75,48 @@ def handle_search() -> None:
     show_books(books)
 
 
+def handle_rate() -> None:
+    print("\nRate a Book\n")
+
+    title = input("Book title: ").strip()
+    if not title:
+        print("\nError: title cannot be empty.\n")
+        return
+
+    rating_str = input("Rating (1-5, leave blank to skip): ").strip()
+    rating: int | None = None
+    if rating_str:
+        try:
+            rating = int(rating_str)
+        except ValueError:
+            print(f"\nError: '{rating_str}' is not a valid number.\n")
+            return
+
+    review = input("Review (leave blank to skip): ").strip() or None
+
+    try:
+        if collection.rate_book(title, rating=rating, review=review):
+            print("\nBook updated successfully.\n")
+        else:
+            print(f"\nNo book found with title '{title}'.\n")
+    except ValueError as e:
+        print(f"\nError: {e}\n")
+
+
+def handle_mark() -> None:
+    print("\nMark a Book as Read\n")
+
+    title = input("Book title: ").strip()
+    if not title:
+        print("\nError: title cannot be empty.\n")
+        return
+
+    if collection.mark_as_read(title):
+        print(f"\n'{title}' marked as read.\n")
+    else:
+        print(f"\nNo book found with title '{title}'.\n")
+
+
 def show_help() -> None:
     print("""
 Book Collection Helper
@@ -81,6 +127,8 @@ Commands:
   remove   - Remove a book by title
   find     - Find books by author
   search   - Search books by title or author
+  mark     - Mark a book as read
+  rate     - Rate a book and add a review
   help     - Show this help message
 """)
 
@@ -91,6 +139,8 @@ COMMANDS = {
     "remove": handle_remove,
     "find": handle_find,
     "search": handle_search,
+    "mark": handle_mark,
+    "rate": handle_rate,
     "help": show_help,
 }
 
