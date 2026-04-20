@@ -51,3 +51,42 @@ def test_remove_book_invalid():
     collection = BookCollection()
     result = collection.remove_book("Nonexistent Book")
     assert result is False
+
+
+def test_search_by_title_substring():
+    collection = BookCollection()
+    collection.add_book("Dune", "Frank Herbert", 1965)
+    collection.add_book("1984", "George Orwell", 1949)
+    results = collection.search("dun")
+    assert len(results) == 1
+    assert results[0].title == "Dune"
+
+
+def test_search_by_author_substring():
+    collection = BookCollection()
+    collection.add_book("Dune", "Frank Herbert", 1965)
+    collection.add_book("1984", "George Orwell", 1949)
+    results = collection.search("orwell")
+    assert len(results) == 1
+    assert results[0].title == "1984"
+
+
+def test_search_matches_title_and_author():
+    collection = BookCollection()
+    collection.add_book("Frank's Story", "Someone Else", 2000)
+    collection.add_book("Dune", "Frank Herbert", 1965)
+    results = collection.search("frank")
+    assert len(results) == 2
+
+
+def test_search_no_match():
+    collection = BookCollection()
+    collection.add_book("Dune", "Frank Herbert", 1965)
+    results = collection.search("nonexistent")
+    assert results == []
+
+
+def test_search_case_insensitive():
+    collection = BookCollection()
+    collection.add_book("Dune", "Frank Herbert", 1965)
+    assert collection.search("DUNE") == collection.search("dune")

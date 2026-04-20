@@ -59,6 +59,18 @@ def handle_find() -> None:
     show_books(books)
 
 
+def handle_search() -> None:
+    print("\nSearch Books\n")
+
+    query = input("Search by title or author: ").strip()
+    if not query:
+        print("\nError: search query cannot be empty.\n")
+        return
+
+    books = collection.search(query)
+    show_books(books)
+
+
 def show_help() -> None:
     print("""
 Book Collection Helper
@@ -68,6 +80,7 @@ Commands:
   add      - Add a new book
   remove   - Remove a book by title
   find     - Find books by author
+  search   - Search books by title or author
   help     - Show this help message
 """)
 
@@ -77,6 +90,7 @@ COMMANDS = {
     "add": handle_add,
     "remove": handle_remove,
     "find": handle_find,
+    "search": handle_search,
     "help": show_help,
 }
 
